@@ -21,6 +21,7 @@ do_deploy() {
     install -m 0755 ${WORKDIR}/${MACHINE}/pq_param.bin ${DEPLOY_DIR_IMAGE}/hd-partitions-${MACHINE}/${MACHINE}
     install -m 0755 ${WORKDIR}/${MACHINE}/baseparam.img ${DEPLOY_DIR_IMAGE}/hd-partitions-${MACHINE}/${MACHINE}
     install -m 0755 ${WORKDIR}/${MACHINE}/logo.img ${DEPLOY_DIR_IMAGE}/hd-partitions-${MACHINE}/${MACHINE}
+    install -m 0755 ${WORKDIR}/${MACHINE}/dtbo.img ${DEPLOY_DIR_IMAGE}/hd-partitions-${MACHINE}/${MACHINE}
 }
 
 addtask deploy before do_build after do_install
