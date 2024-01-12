@@ -17,7 +17,7 @@ inherit update-rc.d
 do_configure[noexec] = "1"
 
 # Generate a simplistic standard init script
-do_compile_append () {
+do_compile:append () {
 	cat > suspend << EOF
 #!/bin/sh
 
@@ -51,7 +51,7 @@ do_install() {
 	done
 }
 
-pkg_prerm_${PN}() {
+pkg_prerm:${PN}() {
 	if [ "x$D" == "x" ]; then
 		if [ -f /lib/modules/${KV}/extra/hi_play.ko ] ; then
 			rm -f /lib/modules/${KV}/extra/hi_play.ko;
@@ -62,10 +62,10 @@ pkg_prerm_${PN}() {
 do_package_qa() {
 }
 
-FILES_${PN} += "${sysconfdir}/modules-load.d/${MACHINE}.conf ${bindir} ${sysconfdir}/init.d ${base_libdir}/modules/${KV}/extra"
+FILES:${PN} += "${sysconfdir}/modules-load.d/${MACHINE}.conf ${bindir} ${sysconfdir}/init.d ${base_libdir}/modules/${KV}/extra"
 
-INSANE_SKIP_${PN} += "already-stripped"
+INSANE_SKIP:${PN} += "already-stripped"
 INHIBIT_PACKAGE_STRIP = "1"
 
-RREPLACES_${PN} = "kernel-module-${MACHINE}-1-4.4.35 kernel-module-${MACHINE}-2-4.4.35 kernel-module-${MACHINE}-3-4.4.35 kernel-module-${MACHINE}-4-4.4.35 kernel-module-hi-play-4.4.35"
-RCONFLICTS_${PN} = "kernel-module-${MACHINE}-1-4.4.35 kernel-module-${MACHINE}-2-4.4.35 kernel-module-${MACHINE}-3-4.4.35 kernel-module-${MACHINE}-4-4.4.35 kernel-module-hi-play-4.4.35"
+RREPLACES:${PN} = "kernel-module-${MACHINE}-1-4.4.35 kernel-module-${MACHINE}-2-4.4.35 kernel-module-${MACHINE}-3-4.4.35 kernel-module-${MACHINE}-4-4.4.35 kernel-module-hi-play-4.4.35"
+RCONFLICTS:${PN} = "kernel-module-${MACHINE}-1-4.4.35 kernel-module-${MACHINE}-2-4.4.35 kernel-module-${MACHINE}-3-4.4.35 kernel-module-${MACHINE}-4-4.4.35 kernel-module-hi-play-4.4.35"

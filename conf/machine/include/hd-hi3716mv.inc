@@ -18,16 +18,18 @@ require conf/machine/include/tune-cortexa7.inc
 require conf/machine/include/hd-essential.inc
 
 # E2 OSD settings
-EXTRA_OECONF_append_pn-enigma2 += " --with-alphablendingacceleration=always --with-blitaccelerationthreshold=250 --with-fillaccelerationthreshold=190000"
+EXTRA_OECONF:append:pn-enigma2 += " --with-alphablendingacceleration=always --with-blitaccelerationthreshold=250 --with-fillaccelerationthreshold=190000"
 
 # Qt
-PACKAGECONFIG_GL_pn-qtbase = " "
-PACKAGECONFIG_append_pn-qtbase += " linuxfb"
+PACKAGECONFIG_GL:pn-qtbase = " "
+PACKAGECONFIG:append:pn-qtbase += " linuxfb"
 
 # Gstreamer dvbmediasink
 DVBMEDIASINK_CONFIG = "--with-h265 --with-vb8 --with-vb9 --with-wma --with-wmv --with-pcm --with-eac3 --with-amr --with-spark"
 
 MACHINE_EXTRA_RRECOMMENDS = " \
+	ffmpeg \
+	gstreamer1.0-libav \
 	ntfs-3g \
 "
 
@@ -38,7 +40,7 @@ IMAGEVERSION[vardepsexclude] = "DATE"
 IMAGEDIR ?= "hd"
 IMGDEPLOYDIR ?= "${DEPLOY_DIR_IMAGE}"
 
-IMAGE_CMD_ubi_append = " \
+IMAGE_CMD:ubi:append = " \
 	mkdir -p ${IMGDEPLOYDIR}/${IMAGEDIR}/${MACHINE}; \
 	cp ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.ubi ${IMGDEPLOYDIR}/${IMAGEDIR}/${MACHINE}/rootfs.ubi; \
 	cp ${DEPLOY_DIR_IMAGE}/uImage ${IMGDEPLOYDIR}/${IMAGEDIR}/${MACHINE}/uImage; \

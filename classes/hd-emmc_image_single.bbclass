@@ -1,6 +1,6 @@
 inherit image_types
 
-IMAGE_TYPEDEP_hdemmc = "ext4"
+IMAGE_TYPEDEP:hdemmc = "ext4"
 
 do_image_hdemmc[depends] = "\
 	parted-native:do_populate_sysroot \
@@ -26,7 +26,7 @@ STORAGE_PARTITION_OFFSET = "$(expr ${ROOTFS_PARTITION_OFFSET} \+ ${ROOTFS_PARTIT
 EMMC_IMAGE = "${IMGDEPLOYDIR}/${IMAGE_NAME}.emmc.img"
 EMMC_IMAGE_SIZE = "3817472"
 
-IMAGE_CMD_hdemmc () {
+IMAGE_CMD:hdemmc () {
     dd if=/dev/zero of=${EMMC_IMAGE} bs=1024 count=0 seek=${EMMC_IMAGE_SIZE}
     parted -s ${EMMC_IMAGE} mklabel gpt
     parted -s ${EMMC_IMAGE} unit KiB mkpart boot fat16 ${BOOT_PARTITION_OFFSET} $(expr ${BOOT_PARTITION_OFFSET} \+ ${BOOT_PARTITION_SIZE})
@@ -44,11 +44,11 @@ IMAGE_CMD_hdemmc () {
     dd if=${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4 of=${EMMC_IMAGE} bs=1024 seek=${ROOTFS_PARTITION_OFFSET}
 }
 
-kernel_do_install_append() {
+kernel_do_install:append() {
         install -d ${D}/${KERNEL_IMAGEDEST}
         install -m 0755 ${KERNEL_OUTPUT} ${D}/${KERNEL_IMAGEDEST}
 }
 
-pkg_postinst_kernel-image () {
+pkg_postinst:kernel-image () {
 	true
 }

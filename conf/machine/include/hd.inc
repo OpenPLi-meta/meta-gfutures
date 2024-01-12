@@ -23,13 +23,13 @@ MACHINE_EXTRA_RRECOMMENDS = " \
 	ntfs-3g \
 	"
 
-DVBMEDIASINK_CONFIG_arm = "--with-h265 --with-vb8 --with-vb9 --with-wma --with-wmv --with-pcm --with-dts --with-eac3"
-DVBMEDIASINK_CONFIG_mipsel = "--with-wma --with-wmv --with-pcm --with-dts --with-eac3 \
+DVBMEDIASINK_CONFIG:arm = "--with-h265 --with-vb8 --with-vb9 --with-wma --with-wmv --with-pcm --with-dts --with-eac3"
+DVBMEDIASINK_CONFIG:mipsel = "--with-wma --with-wmv --with-pcm --with-dts --with-eac3 \
 	${@bb.utils.contains('MACHINE_FEATURES', 'h265', '--with-h265 --with-vb6 --with-vb8 --with-spark' , '', d)} \
 	"
 
-PACKAGECONFIG_GL_pn-qtbase = " "
-PACKAGECONFIG_append_pn-qtbase += " gles2 linuxfb"
+PACKAGECONFIG_GL:pn-qtbase = " "
+PACKAGECONFIG:append:pn-qtbase += " gles2 linuxfb"
 
 IMAGEVERSION := "${DISTRO_NAME}-${DISTRO_VERSION}-${DATE}"
 IMAGEVERSION[vardepsexclude] = "DATE"
@@ -38,7 +38,7 @@ IMAGEDIR ?= "${MACHINE}"
 IMGDEPLOYDIR ?= "${DEPLOY_DIR_IMAGE}"
 
 # ARM
-IMAGE_CMD_hdemmc_append_arm = "\
+IMAGE_CMD:hdemmc:append:arm = "\
 	mkdir -p ${IMGDEPLOYDIR}/${IMAGEDIR}; \
 	cp ${IMGDEPLOYDIR}/${IMAGE_NAME}.emmc.img ${IMGDEPLOYDIR}/${IMAGEDIR}/disk.img; \
 	echo "${IMAGEVERSION}" > ${IMGDEPLOYDIR}/${IMAGEDIR}/imageversion; \
@@ -52,7 +52,7 @@ IMAGE_CMD_hdemmc_append_arm = "\
 	"
 
 # MIPSEL
-IMAGE_CMD_ubi_append_mipsel = " \
+IMAGE_CMD:ubi:append:mipsel = " \
 	mkdir -p ${IMGDEPLOYDIR}/${IMAGEDIR}; \
 	cp ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi ${IMGDEPLOYDIR}/${IMAGEDIR}/rootfs.bin; \
 	cp ${DEPLOY_DIR_IMAGE}/vmlinux.gz-${MACHINE}.bin ${IMGDEPLOYDIR}/${IMAGEDIR}/kernel.bin; \
@@ -64,6 +64,6 @@ IMAGE_CMD_ubi_append_mipsel = " \
 	rm -Rf ${IMGDEPLOYDIR}/boot; \
 	"
 
-IMAGE_CMD_prepend = "\
+IMAGE_CMD:prepend = "\
 	rm -Rf ${IMAGE_ROOTFS}/tmp/*; \
 	"

@@ -7,7 +7,7 @@ COMPATIBLE_MACHINE = "hd+|vs+|bre2ze4k"
 
 inherit kernel machine_kernel_pr
 
-MACHINE_KERNEL_PR_append = ".3"
+MACHINE_KERNEL_PR:append = ".3"
 
 SRC_URI[mips.md5sum] = "3c42df14db9d12041802f4c8fec88e17"
 SRC_URI[mips.sha256sum] = "738896d2682211d2079eeaa1c7b8bdd0fe75eb90cd12dff2fc5aeb3cc02562bc"
@@ -19,17 +19,17 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/linux-${PV}/COPYING;md5=d7810fab7487fb0aad
 # By default, kernel.bbclass modifies package names to allow multiple kernels
 # to be installed in parallel. We revert this change and rprovide the versioned
 # package names instead, to allow only one kernel to be installed.
-PKG_${KERNEL_PACKAGE_NAME}-base = "kernel-base"
-PKG_${KERNEL_PACKAGE_NAME}-image = "kernel-image"
-RPROVIDES_${KERNEL_PACKAGE_NAME}-base = "kernel-${KERNEL_VERSION}"
-RPROVIDES_${KERNEL_PACKAGE_NAME}-image = "kernel-image-${KERNEL_VERSION}"
+PKG:${KERNEL_PACKAGE_NAME}-base = "kernel-base"
+PKG:${KERNEL_PACKAGE_NAME}-image = "kernel-image"
+RPROVIDES:${KERNEL_PACKAGE_NAME}-base = "kernel-${KERNEL_VERSION}"
+RPROVIDES:${KERNEL_PACKAGE_NAME}-image = "kernel-image-${KERNEL_VERSION}"
 
 SRC_URI += "http://downloads.mutant-digital.net/linux-${PV}-${ARCH}.tar.gz;name=${ARCH} \
 	file://defconfig \
 	file://initramfs-subdirboot.cpio.gz;unpack=0 \
 "
 
-SRC_URI_append_arm = " \
+SRC_URI:append:arm = " \
 	file://findkerneldevice.sh \
 	file://reserve_dvb_adapter_0.patch \
 	file://blacklist_mmc0.patch \
@@ -44,18 +44,18 @@ export OS = "Linux"
 KERNEL_OBJECT_SUFFIX = "ko"
 
 # MIPSEL
-KERNEL_IMAGETYPE_mipsel = "vmlinux.gz"
-KERNEL_OUTPUT_DIR_mipsel = "."
-KERNEL_IMAGEDEST_mipsel = "tmp"
-KERNEL_CONSOLE_mipsel = "null"
-SERIAL_CONSOLE_mipsel ?= ""
+KERNEL_IMAGETYPE:mipsel = "vmlinux.gz"
+KERNEL_OUTPUT_DIR:mipsel = "."
+KERNEL_IMAGEDEST:mipsel = "tmp"
+KERNEL_CONSOLE:mipsel = "null"
+SERIAL_CONSOLE:mipsel ?= ""
 
-KERNEL_EXTRA_ARGS_mipsel = "EXTRA_CFLAGS=-Wno-attribute-alias"
+KERNEL_EXTRA_ARGS:mipsel = "EXTRA_CFLAGS=-Wno-attribute-alias"
 
 # Replaced by kernel_output_dir
-KERNEL_OUTPUT_mipsel = "vmlinux.gz"
+KERNEL_OUTPUT:mipsel = "vmlinux.gz"
 
-pkg_postinst_kernel-image_mipsel() {
+pkg_postinst:kernel-image:mipsel() {
 	if [ "x$D" == "x" ]; then
 		if [ -f /${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE} ] ; then
 			flash_eraseall /dev/mtd1
@@ -66,23 +66,23 @@ pkg_postinst_kernel-image_mipsel() {
 }
 
 # ARM
-KERNEL_OUTPUT_arm = "arch/${ARCH}/boot/${KERNEL_IMAGETYPE}"
-KERNEL_IMAGETYPE_arm = "zImage"
-KERNEL_IMAGEDEST_arm = "tmp"
+KERNEL_OUTPUT:arm = "arch/${ARCH}/boot/${KERNEL_IMAGETYPE}"
+KERNEL_IMAGETYPE:arm = "zImage"
+KERNEL_IMAGEDEST:arm = "tmp"
 
-FILES_${KERNEL_PACKAGE_NAME}-image_arm = "/${KERNEL_IMAGEDEST}/findkerneldevice.sh"
+FILES:${KERNEL_PACKAGE_NAME}-image:arm = "/${KERNEL_IMAGEDEST}/findkerneldevice.sh"
 
-kernel_do_configure_prepend_arm() {
+kernel_do_configure:prepend:arm() {
 	install -d ${B}/usr
 	install -m 0644 ${WORKDIR}/initramfs-subdirboot.cpio.gz ${B}/
 }
 
-kernel_do_install_append_arm() {
+kernel_do_install:append:arm() {
 	install -d ${D}/${KERNEL_IMAGEDEST}
 	install -m 0755 ${WORKDIR}/findkerneldevice.sh ${D}/${KERNEL_IMAGEDEST}
 }
 
-pkg_postinst_kernel-image_arm() {
+pkg_postinst:kernel-image:arm() {
 	if [ "x$D" == "x" ]; then
 		if [ -f /${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE} ] ; then
 			/${KERNEL_IMAGEDEST}/./findkerneldevice.sh
