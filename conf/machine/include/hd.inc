@@ -29,7 +29,7 @@ DVBMEDIASINK_CONFIG:mipsel = "--with-wma --with-wmv --with-pcm --with-dts --with
 	"
 
 PACKAGECONFIG_GL:pn-qtbase = " "
-PACKAGECONFIG:append:pn-qtbase += " gles2 linuxfb"
+PACKAGECONFIG:append:pn-qtbase = " gles2 linuxfb"
 
 IMAGEVERSION := "${DISTRO_NAME}-${DISTRO_VERSION}-${DATE}"
 IMAGEVERSION[vardepsexclude] = "DATE"

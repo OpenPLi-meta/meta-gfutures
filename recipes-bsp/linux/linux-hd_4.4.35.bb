@@ -1,6 +1,6 @@
 DESCRIPTION = "Linux kernel for ${MACHINE}"
 SECTION = "kernel"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 VER ?= "${@bb.utils.contains('TARGET_ARCH', 'aarch64', '64' , '', d)}"
 
@@ -46,8 +46,8 @@ KERNEL_IMAGEDEST = "tmp"
 KERNEL_IMAGETYPE = "uImage"
 KERNEL_OUTPUT = "arch/${ARCH}/boot/${KERNEL_IMAGETYPE}"
 
-FILES:${KERNEL_PACKAGE_NAME}-image_hd31 = " "
-FILES:${KERNEL_PACKAGE_NAME}-image_hd41 = " "
+FILES:${KERNEL_PACKAGE_NAME}-image:hd31 = " "
+FILES:${KERNEL_PACKAGE_NAME}-image:hd41 = " "
 FILES:${KERNEL_PACKAGE_NAME}-image = "/${KERNEL_IMAGEDEST}/findkerneldevice.sh"
 
 kernel_do_configure:prepend() {
@@ -55,10 +55,10 @@ kernel_do_configure:prepend() {
     install -m 0644 ${WORKDIR}/initramfs-subdirboot.cpio.gz ${B}/
 }
 
-kernel_do_install:append_hd31() {
+kernel_do_install:append:hd31() {
 }
 
-kernel_do_install:append_hd41() {
+kernel_do_install:append:hd41() {
 }
 
 kernel_do_install:append() {
@@ -66,7 +66,7 @@ kernel_do_install:append() {
 	install -m 0755 ${WORKDIR}/findkerneldevice.sh ${D}/${KERNEL_IMAGEDEST}
 }
 
-pkg_postinst:kernel-image_hd31() {
+pkg_postinst:kernel-image:hd31() {
 	if [ "x$D" == "x" ]; then
 		if [ -f /${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE} ] ; then
 			flash_eraseall /dev/${MTD_KERNEL}
@@ -76,7 +76,7 @@ pkg_postinst:kernel-image_hd31() {
 	true
 }
 
-pkg_postinst:kernel-image_hd41() {
+pkg_postinst:kernel-image:hd41() {
 	if [ "x$D" == "x" ]; then
 		if [ -f /${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE} ] ; then
 			flash_eraseall /dev/${MTD_KERNEL}
