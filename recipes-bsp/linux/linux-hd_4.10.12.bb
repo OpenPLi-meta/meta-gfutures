@@ -49,7 +49,7 @@ KERNEL_IMAGEDEST:mipsel = "tmp"
 KERNEL_CONSOLE:mipsel = "null"
 SERIAL_CONSOLE:mipsel ?= ""
 
-KERNEL_EXTRA_ARGS:mipsel = "EXTRA_CFLAGS=-Wno-attribute-alias"
+KERNEL_EXTRA_ARGS:mipsel = "EXTRA_CFLAGS+=-Wno-attribute-alias EXTRA_CFLAGS+=-Wno-address EXTRA_CFLAGS+=-Wno-array-bounds"
 
 # Replaced by kernel_output_dir
 KERNEL_OUTPUT:mipsel = "vmlinux.gz"
