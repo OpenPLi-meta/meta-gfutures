@@ -34,6 +34,7 @@ SRC_URI:append:arm = " \
 	file://export_pmpoweroffprepare.patch \
 	file://enable_hauppauge_solohd.patch \
 	file://make-yyloc-declaration-extern.patch \
+	file://fix-build-with-binutils-2.41-kernel41012.patch \
 "
 
 S = "${WORKDIR}/linux-${PV}"
