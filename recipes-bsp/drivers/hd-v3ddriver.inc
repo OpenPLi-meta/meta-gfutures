@@ -10,7 +10,7 @@ DEPENDS = "libdrm mesa patchelf-native"
 PROVIDES = "virtual/libgles2 virtual/libgles1 virtual/egl"
 RPROVIDES_${PN} = "libnxpl.so libnexus.so libv3ddriver.so libEGL.so.1.4 libEGL.so.1 libEGL.so libGLESv1_CM.so.1.1 libGLESv1_CM.so.1 libGLESv1_CM.so libGLESv2.so.2.0 libGLESv2.so.2 libGLESv2.so"
 
-SRC_URI = "http://downloads.mutant-digital.net/v3ddriver/${MACHINE}-v3ddriver-${SRCDATE}.zip"
+SRC_URI = "http://downloads.openpli.org/archive/gfutures/${MACHINE}-v3ddriver-${SRCDATE}.zip"
 
 S = "${WORKDIR}"
 
