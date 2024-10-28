@@ -6,7 +6,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 PV = "${KV}+${SRCDATE}"
 
-SRC_URI = "http://downloads.mutant-digital.net/${MACHINE}/${MACHINE}-drivers-${KV}-${SRCDATE}.zip"
+SRC_URI = "http://downloads.openpli.org/archive/gfutures/${MACHINE}-drivers-${KV}-${SRCDATE}.zip"
 
 S = "${WORKDIR}"
 

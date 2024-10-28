@@ -14,7 +14,7 @@ MACHINE_KERNEL_PR:append = ".9"
 SRC_URI[arm.md5sum] = "f9e67e2d0ceab518510413f8f4315bc3"
 SRC_URI[arm.sha256sum] = "45ae717b966a74326fd7297d81b3a17fd5b3962b7704170682a615ca7cdec644"
 
-SRC_URI = "http://downloads.mutant-digital.net/linux-${PV}-${SRCDATE}-${ARCH}.tar.gz;name=${ARCH} \
+SRC_URI = "http://downloads.openpli.org/archive/gfutures/linux-${PV}-${SRCDATE}-${ARCH}.tar.gz;name=${ARCH} \
 	file://defconfig \
 	file://0001-remote.patch \
 	file://HauppaugeWinTV-dualHD.patch \
