@@ -2,6 +2,7 @@ KV = "4.10.12"
 SRCDATE = "20191120"
 
 PROVIDES = "virtual/blindscan-dvbs"
+RPROVIDES:${PN} += "virtual/blindscan-dvbs"
 
 require hd-dvb-modules.inc
 

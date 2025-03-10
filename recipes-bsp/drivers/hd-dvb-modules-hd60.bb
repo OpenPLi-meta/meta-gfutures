@@ -1,7 +1,8 @@
 KV = "4.4.35"
 SRCDATE = "20220208"
 
-PROVIDES = "virtual/blindscan-dvbs"
+PROVIDES += "virtual/blindscan-dvbs"
+RPROVIDES:${PN} += "virtual/blindscan-dvbs"
 
 require hd-dvb-modules-hisil.inc
 
