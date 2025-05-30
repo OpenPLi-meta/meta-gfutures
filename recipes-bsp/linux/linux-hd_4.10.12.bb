@@ -26,7 +26,9 @@ SRC_URI += "http://downloads.openpli.org/archive/gfutures/linux-${PV}-${ARCH}.ta
 	file://defconfig \
 	file://initramfs-subdirboot.cpio.gz;unpack=0 \
 "
-
+SRC_URI:append:mipsel = " \
+	file://fix-never-be-null_outside-array-bounds-gcc-12.patch \
+"
 SRC_URI:append:arm = " \
 	file://findkerneldevice.sh \
 	file://reserve_dvb_adapter_0.patch \
