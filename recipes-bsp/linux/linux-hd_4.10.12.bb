@@ -24,19 +24,17 @@ RPROVIDES:${KERNEL_PACKAGE_NAME}-image = "kernel-image-${KERNEL_VERSION}"
 
 SRC_URI += "http://downloads.openpli.org/archive/gfutures/linux-${PV}-${ARCH}.tar.gz;name=${ARCH} \
 	file://defconfig \
-	file://initramfs-subdirboot.cpio.gz;unpack=0 \
-"
-SRC_URI:append:mipsel = " \
+	file://export_pmpoweroffprepare.patch \
+	file://make-yyloc-declaration-extern.patch \
 	file://fix-never-be-null_outside-array-bounds-gcc-12.patch \
+	file://fix-build-with-binutils-2.41.patch \
 "
 SRC_URI:append:arm = " \
 	file://findkerneldevice.sh \
+	file://initramfs-subdirboot.cpio.gz;unpack=0 \
 	file://reserve_dvb_adapter_0.patch \
 	file://blacklist_mmc0.patch \
-	file://export_pmpoweroffprepare.patch \
 	file://enable_hauppauge_solohd.patch \
-	file://make-yyloc-declaration-extern.patch \
-	file://fix-build-with-binutils-2.41-kernel41012.patch \
 "
 
 S = "${WORKDIR}/linux-${PV}"
