@@ -28,7 +28,7 @@ SRC_URI = "http://downloads.openpli.org/archive/gfutures/linux-${PV}-${SRCDATE}-
 	file://0004-linux-fix-buffer-size-warning-error.patch \
 	file://Backport_minimal_compiler_attributes_h_to_support_GCC_9.patch \
 	file://make-yyloc-declaration-extern.patch \
-	file://fix-build-with-binutils-2.41.patch \
+	file://fix-build-with-binutils-2.41-kernel4-4-35.patch \
 "
 
 # By default, kernel.bbclass modifies package names to allow multiple kernels
